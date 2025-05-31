@@ -1,0 +1,94 @@
+import styled from "styled-components";
+import Header from "../components/Header";
+import { BACKEND_URL } from "../Root";
+import Input from "../components/Input";
+import { Link, redirect, useOutletContext } from "react-router-dom";
+import { useState } from "react";
+
+const LoginPageComponent = styled.div`
+    display: grid;
+    flex-direction: column;
+    min-width: 100vw;
+    min-height: 100vh
+`
+const LoginForm = styled.form`
+    place-self: center;
+    margin-bottom: 8em;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    color: #3a3a38;
+    gap: 1.4em;
+`
+
+export const SubmitButton = styled.button`
+    background-color: #d8cf9a;
+    color: #5a5a56;
+    transition: transform ease-in-out 0.2s;
+    &:hover,&:focus  {
+        outline: none;
+        transform: scale(1.03)
+    }
+    width: 80%;
+`
+const AlternateLoginHint = styled.span`
+    font-size: 1rem;
+`
+
+const LoginPage = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const {setUser} = useOutletContext();
+    
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const url = `${BACKEND_URL}login`
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({username, password})
+        })
+        .then(response => response.json())
+        .then(response => setUser(response.user));
+        return redirect('/sign')
+    }
+
+
+    return (
+        <LoginPageComponent>
+            <Header />
+            <LoginForm method="post" action="/" onSubmit={handleLogin}>
+                <span>
+                    Login to comment on posts and for other features.
+                </span>
+                <Input
+                    name="username"
+                    id="username"
+                    type="text"
+                    label="Username"
+                    value={username}
+                    setUsername={setUsername}
+                />
+                <Input
+                    name="password"
+                    id="password"
+                    type="password"
+                    label="Password"
+                    value={password}
+                    setPassword={setPassword}
+                />
+                <SubmitButton type="submit">Login</SubmitButton>
+                <AlternateLoginHint>
+                    New here? <Link to="/signup">Sign Up</Link>
+                </AlternateLoginHint>
+            </LoginForm>
+        </LoginPageComponent>
+    )
+}
+
+
+export default LoginPage;

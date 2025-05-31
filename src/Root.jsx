@@ -1,0 +1,27 @@
+import { useContext, useEffect, useState } from 'react';
+import { Outlet } from 'react-router-dom'
+
+export const BACKEND_URL = "http://localhost:8000/"
+
+export default function Root() {
+    const [posts, setPosts] = useState([])
+    const [user, setUser] = useState(null);
+    
+    useEffect(() => {
+        fetch(`${BACKEND_URL}posts`)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            return setPosts(data)
+        })
+        .catch(e => console.error(e));
+    }, [])
+    return (
+        <>
+            <Outlet 
+                context={{posts, user, setUser}}
+            />
+        </>
+    )
+}
