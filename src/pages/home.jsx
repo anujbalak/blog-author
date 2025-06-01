@@ -24,7 +24,7 @@ export const LoadingContainer = styled.div`
 
 const Homepage = () => {
     let {posts} = useOutletContext();
-
+    
     
     return (
         <HomeComponent className="homepage">

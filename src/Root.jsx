@@ -7,6 +7,19 @@ export default function Root() {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState(null);
     
+    const refreshToken = localStorage.getItem('refreshToken');
+    useEffect(() => {
+        fetch(`${BACKEND_URL}refresh`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${refreshToken}`,
+            }
+        })
+        .then(res => res.json())
+        .then(res => setUser(res))
+        .catch(err => console.error(err))
+    }, [])
+
     useEffect(() => {
         fetch(`${BACKEND_URL}posts`)
         .then(response => {

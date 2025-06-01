@@ -40,8 +40,8 @@ const AlternateLoginHint = styled.span`
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useOutletContext();
-    
+    const {user, setUser} = useOutletContext();
+
     const handleLogin = async (e) => {
         e.preventDefault();
         const url = `${BACKEND_URL}login`
@@ -50,13 +50,17 @@ const LoginPage = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username, password}),
+            /* credentials: "include", */
+            //mode: "same-origin"
         })
         .then(response => response.json())
-        .then(response => setUser(response.user));
-        return redirect('/sign')
+        .then(response => {
+            saveTokens(response.accessToken, response.refreshToken)
+            return setUser(response.user);
+        });
+        console.log('user', user)
     }
-
 
     return (
         <LoginPageComponent>
@@ -88,6 +92,15 @@ const LoginPage = () => {
             </LoginForm>
         </LoginPageComponent>
     )
+}
+
+const saveTokens = (accessToken, refreshToken) => {
+    if (!accessToken || !refreshToken) {
+        return;
+    }
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
+    return;
 }
 
 

@@ -23,7 +23,9 @@ const HeaderBtnsContainer = styled.div`
     flex-wrap: wrap;
 `
 const AccountContainer = styled.div`
-    
+    display: flex;
+    align-items: center;
+    margin-right: 2em;
 `
 
 const Header = () => {
@@ -40,7 +42,9 @@ const Header = () => {
             </div>
             {Boolean(user) === true ?
                 <AccountContainer>
-                    
+                    <Link to="/account">
+                        <img src="/icons/account.svg" alt="" />
+                    </Link>
                 </AccountContainer>
             :
                 <HeaderBtnsContainer>
