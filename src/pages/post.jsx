@@ -56,7 +56,7 @@ export default function Post() {
                   />
                   <PostBody text={post.text}/>
                   <DividerLine />
-                  <PostComments  comments={post.Comment}/>
+                  <PostComments  comments={post.Comment} postid ={post.id}/>
                 </PostContainer>
             :
 
@@ -83,5 +83,3 @@ export async function fetchPost(id) {
         console.error(error.message);        
     }
 }
-
-fetchPost('612da0f1-8695-49e8-b0d4-8875abd2b355')

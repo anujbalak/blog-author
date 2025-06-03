@@ -1,6 +1,7 @@
+import { useOutletContext } from "react-router-dom";
 import Posts from "../pages/allPosts";
 import Homepage from "../pages/home";
-import LoginPage from "../pages/login";
+import LoginPage, { loginLoader } from "../pages/login";
 import Post, { fetchPost } from "../pages/post";
 import SignupPage from "../pages/signup";
 import Root from "../Root";
@@ -18,7 +19,7 @@ const routes = [
             },
             {
                 path: '/login',
-                Component: LoginPage
+                Component: LoginPage,
             },
             {
                 path: '/signup',

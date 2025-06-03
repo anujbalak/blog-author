@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { BACKEND_URL } from "../Root";
 import Input from "../components/Input";
-import { Link, redirect, useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { Link, redirect, useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const LoginPageComponent = styled.div`
     display: grid;
@@ -41,6 +41,15 @@ const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const {user, setUser} = useOutletContext();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/', {replace: true});
+        }
+
+    }, [user]);
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -59,7 +68,6 @@ const LoginPage = () => {
             saveTokens(response.accessToken, response.refreshToken)
             return setUser(response.user);
         });
-        console.log('user', user)
     }
 
     return (
@@ -101,6 +109,14 @@ const saveTokens = (accessToken, refreshToken) => {
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
     return;
+}
+
+export const loginLoader = () => {
+    const { user} = useOutletContext()
+    console.log(user);
+    /* if (user) {
+        return redirect('/')
+    } */
 }
 
 

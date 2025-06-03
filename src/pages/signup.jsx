@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { BACKEND_URL } from "../Root";
 import Input from "../components/Input";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { redirect } from "react-router-dom";
 
 const SignupPageComponent = styled.div`
@@ -43,7 +43,14 @@ const SignupPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] =  useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const {user} = useOutletContext();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (user) {
+            navigate('/', {replace: true});
+        };
+    });
 
     const handleSignup = async (e) => {
         e.preventDefault();

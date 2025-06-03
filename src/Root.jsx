@@ -16,7 +16,11 @@ export default function Root() {
             }
         })
         .then(res => res.json())
-        .then(res => setUser(res))
+        .then(res => {
+            setUser(res.user)
+            localStorage.setItem('accessToken', res.accessToken)
+            return
+        })
         .catch(err => console.error(err))
     }, [])
 

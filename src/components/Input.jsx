@@ -11,7 +11,7 @@ const InputContainer = styled.section`
 const Label = styled.label`
     
 `
-const InputComponent = styled.input`
+export const InputComponent = styled.input`
     all: unset;
     background-color:transparent;
     border: none;;
