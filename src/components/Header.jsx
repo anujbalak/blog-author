@@ -28,7 +28,7 @@ const AccountContainer = styled.div`
     margin-right: 2em;
 `
 
-const Header = () => {
+const Header = ({account}) => {
     const {user} = useOutletContext()
 
     return (
@@ -40,13 +40,13 @@ const Header = () => {
                     </Link>
                 </Title>
             </div>
-            {Boolean(user) === true ?
+            {!account && Boolean(user) === true ?
                 <AccountContainer>
                     <Link to="/account">
                         <img src="/icons/account.svg" alt="" />
                     </Link>
                 </AccountContainer>
-            :
+            : !account && Boolean(user) === false &&
                 <HeaderBtnsContainer>
                     <Button name="Login" path="login"/>
                     <Button name="Signup" path="signup"/>

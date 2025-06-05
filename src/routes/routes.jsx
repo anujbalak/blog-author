@@ -5,6 +5,7 @@ import LoginPage, { loginLoader } from "../pages/login";
 import Post, { fetchPost } from "../pages/post";
 import SignupPage from "../pages/signup";
 import Root from "../Root";
+import Account from "../pages/account";
 
 const routes = [
     {
@@ -36,6 +37,10 @@ const routes = [
                 //     return {post};
                 // },
                 Component: Post,
+            },
+            {
+                path: '/account',
+                Component: Account,
             }
         ],
     },

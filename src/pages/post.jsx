@@ -3,8 +3,10 @@ import Header from "../components/Header";
 import { BACKEND_URL } from "../Root";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Orbit } from "ldrs/react";
+import { Orbit, BouncyArc } from "ldrs/react";
 import 'ldrs/react/Orbit.css'
+import 'ldrs/react/BouncyArc.css'
+
 import { LoadingContainer, LoadingText } from "./home";
 import PostTitle from "../components/post/PostTitle";
 import PostBody from "../components/post/PostBody";
@@ -32,9 +34,14 @@ const DividerLine = styled.hr`
     margin-top: 2em;
 `
 
+const LoadingDialog = styled.dialog`
+    
+`
+
 export default function Post() {
     let params = useParams()
     const [post, setPost] = useState()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
        const getPost = async () => {
@@ -46,17 +53,26 @@ export default function Post() {
 
     return (
         <PostPage className="post-page">
+            {loading &&
+                <LoadingDialog>
+                    <BouncyArc size="100"/>
+                </LoadingDialog>
+            }
             <Header/>
             {Boolean(post) === true ?
                 <PostContainer>
-                  <PostTitle
-                    authorid={post.authorid}
-                    date={post.createdAt}
-                    title={post.title}
-                  />
-                  <PostBody text={post.text}/>
-                  <DividerLine />
-                  <PostComments  comments={post.Comment} postid ={post.id}/>
+                    <PostTitle
+                        authorid={post.authorid}
+                        date={post.createdAt}
+                        title={post.title}
+                    />
+                    <PostBody text={post.text}/>
+                    <DividerLine />
+                    <PostComments  
+                        comments={post.Comment} 
+                        loading={loading}
+                        setLoading={setLoading} 
+                    />
                 </PostContainer>
             :
 

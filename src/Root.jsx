@@ -6,6 +6,7 @@ export const BACKEND_URL = "http://localhost:8000/"
 export default function Root() {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState(null);
+    const [refresh, setRefresh] = useState(null);
     
     const refreshToken = localStorage.getItem('refreshToken');
     useEffect(() => {

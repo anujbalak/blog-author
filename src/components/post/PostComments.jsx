@@ -4,8 +4,9 @@ import Input, { InputComponent } from "../Input";
 import { SubmitButton } from "../../pages/signup";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../../Root";
-import { deleteComment, getUserById } from "../../requests/queries";
+import { deleteComment, editComment, getUserById } from "../../requests/queries";
 import {Textarea} from "../Textarea";
+
 
 const CommentsContainer = styled.div`
     display: grid;
@@ -78,12 +79,12 @@ const LabelButton = styled.button`
 `
 
 
-
-export default function PostComments({comments}) {
+export default function PostComments({comments, loading, setLoading}) {
     const [text, setText] = useState('');
     const {user} = useOutletContext();
     const {postid} = useParams()
     const navigate = useNavigate();
+    const [commentError, setCommentError] = useState(null);
 
     const handleCommentAdd = async (e) => {
         e.preventDefault();
@@ -97,7 +98,9 @@ export default function PostComments({comments}) {
             },
             body: JSON.stringify({comment: text}),
         })
-        .then(response => response.json())
+        .then(response => {
+            return response.json()
+        })
         .then(response => console.log(response))
         .catch(err => console.error(err))
         setText('')
@@ -129,7 +132,13 @@ export default function PostComments({comments}) {
                 }
             </AddCommentContainer>
             {comments.length > 0 &&
-                comments.map(comment => <Comment key={comment.id} comment={comment} user={user}/>)
+                comments.map(comment => <Comment 
+                    key={comment.id} 
+                    comment={comment} 
+                    user={user}
+                    loading={loading}
+                    setLoading={setLoading}
+                />)
             }
         </CommentsContainer>
     )
@@ -137,10 +146,13 @@ export default function PostComments({comments}) {
 
 
 
-const Comment = ({comment, user}) => {
+const Comment = ({comment, user, loading, setLoading}) => {
+    const [text, setText] = useState(comment.text);
     const [commentUser, setUser] = useState();
     const [showLabel, setShowLabel] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -165,6 +177,18 @@ const Comment = ({comment, user}) => {
         }
     }, [isDelete])
 
+    const handleUpdateComment = async (e) => {
+        setLoading(true)
+        e.preventDefault()
+        await editComment(comment.id, text)
+        setIsEdit(false);
+        setTimeout(() => {
+            navigate(0)
+        }, 50);
+        setLoading(false)
+        return
+    }
+
     const handleOptionsClick = () => {
         if (showLabel) {
             return setShowLabel(false)
@@ -174,31 +198,50 @@ const Comment = ({comment, user}) => {
     
     return (
         <CommentBody>
-            <CommentHeader>
-                {commentUser &&
-                    <CommentUser>
-                        {commentUser.username}
-                    </CommentUser>
-                }
-                {user && comment.userid === user.id &&
-                    <CommentOptions onClick={handleOptionsClick}>
-                        {showLabel &&
-                            <LabelBody>
-                                <LabelButton>
-                                    Edit
-                                </LabelButton>
-                                <LabelButton onClick={() => setIsDelete(true)}>
-                                    Delete
-                                </LabelButton>
-                            </LabelBody>
-                        }
-                        <img src="/icons/three-dots.svg" alt="" />
-                    </CommentOptions>
-                }
-            </CommentHeader>
-            <CommentText>
-                {comment.text}
-            </CommentText>
+            {!isEdit ?
+                <>
+                <CommentHeader>
+                    {commentUser &&
+                        <CommentUser>
+                            {commentUser.username}
+                        </CommentUser>
+                    }
+                    {user && comment.userid === user.id &&
+                        <CommentOptions onClick={handleOptionsClick}>
+                            {showLabel &&
+                                <LabelBody>
+                                    <LabelButton onClick={() => setIsEdit(true)}>
+                                        Edit
+                                    </LabelButton>
+                                    <LabelButton onClick={() => setIsDelete(true)}>
+                                        Delete
+                                    </LabelButton>
+                                </LabelBody>
+                            }
+                            <img src="/icons/three-dots.svg" alt="" />
+                        </CommentOptions>
+                    }
+                </CommentHeader>
+                <CommentText>
+                    {comment.text}
+                </CommentText>
+                </>
+            :
+                <AddCommentContainer>
+                    {Boolean(user) === true &&
+                        <AddCommentForm method="post" onSubmit={handleUpdateComment}>
+                            <Textarea 
+                                name="comment"
+                                text={text}
+                                setText={setText}
+                            />
+                            <AddCommentBtn>
+                                Add
+                            </AddCommentBtn>
+                        </AddCommentForm>
+                    }
+                </AddCommentContainer>
+            }
         </CommentBody>
     )
 }
