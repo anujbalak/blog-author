@@ -40,7 +40,7 @@ const AlternateLoginHint = styled.span`
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {user, setUser} = useOutletContext();
+    const {user, setUser, setLoading} = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,6 +52,7 @@ const LoginPage = () => {
 
 
     const handleLogin = async (e) => {
+        setLoading(true);
         e.preventDefault();
         const url = `${BACKEND_URL}login`
         await fetch(url, {
@@ -65,9 +66,13 @@ const LoginPage = () => {
         })
         .then(response => response.json())
         .then(response => {
+            if (!response.user) {
+                return console.log(response);
+            }
             saveTokens(response.accessToken, response.refreshToken)
             return setUser(response.user);
         });
+        setLoading(false)
     }
 
     return (

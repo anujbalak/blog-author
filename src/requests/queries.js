@@ -60,7 +60,7 @@ export const editComment = async (id, comment) => {
 export const updateUsername = async (id, username) => {
     try {
         let result = null
-        const url = `${BACKEND_URL}users/${id}`
+        const url = `${BACKEND_URL}users/${id}/username`
         
         await fetch(url, {
             method: 'put',
@@ -81,7 +81,7 @@ export const updateUsername = async (id, username) => {
 export const updateEmail = async (id, email) => {
     try {
         let result = null
-        const url = `${BACKEND_URL}users/${id}`
+        const url = `${BACKEND_URL}users/${id}/email`
         
         await fetch(url, {
             method: 'put',
@@ -96,5 +96,47 @@ export const updateEmail = async (id, email) => {
         return result;
     } catch (err) {
         console.error(err)
+    }
+}
+
+export const updatePassword = async (id, oldPassword, password, confirmPassword, username) => {
+    try {
+        let result = null
+        const url = `${BACKEND_URL}users/${id}/password`
+        await fetch(url, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({oldPassword, password, confirmPassword, username})
+        })
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err));
+        return result;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const logout = async (accessToken, refreshToken) => {
+    try {
+        let result = null;
+        const url = `${BACKEND_URL}logout`;
+
+        await fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({accessToken, refreshToken}),
+        })
+        .then(res => res.json())
+        .then(res => result = res)
+        .catch(err => console.error(err))
+
+        return result
+    } catch (error) {
+        console.log(error);        
     }
 }
