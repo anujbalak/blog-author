@@ -1,5 +1,9 @@
 import { BACKEND_URL } from "../Root";
 
+
+const accessToken = localStorage.getItem('accessToken')
+let authorization =  `Bearer ${accessToken}`
+
 export const getUserById = async (id) => {
     try {
         let user = null;
@@ -44,6 +48,7 @@ export const editComment = async (id, comment) => {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json',
+                authorization,
             },
             body: JSON.stringify({comment})
         })
@@ -66,6 +71,7 @@ export const updateUsername = async (id, username) => {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json',
+                authorization,
             },
             body: JSON.stringify({username})
         })
@@ -87,6 +93,7 @@ export const updateEmail = async (id, email) => {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json',
+                authorization,
             },
             body: JSON.stringify({email})
         })
@@ -107,8 +114,31 @@ export const updatePassword = async (id, oldPassword, password, confirmPassword,
             method: 'put',
             headers: {
                 'Content-Type': 'application/json',
+                authorization,
             },
             body: JSON.stringify({oldPassword, password, confirmPassword, username})
+        })
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err));
+        return result;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const newPost = async (title, text) => {
+    try {
+        let result = null
+        const url = `${BACKEND_URL}posts/new`
+        
+        await fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization,
+            },
+            body: JSON.stringify({title, text})
         })
         .then(response => response.json())
         .then(response => result = response)
@@ -128,6 +158,7 @@ export const logout = async (accessToken, refreshToken) => {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
+                authorization,
             },
             body: JSON.stringify({accessToken, refreshToken}),
         })

@@ -82,6 +82,9 @@ button:focus-visible {
   }
 }
 
+.tox-promotion {
+  display: none;
+}
 
 @media (prefers-color-scheme: light) {
   :root {

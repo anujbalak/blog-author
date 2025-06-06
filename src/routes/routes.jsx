@@ -6,6 +6,7 @@ import Post, { fetchPost } from "../pages/post";
 import SignupPage from "../pages/signup";
 import Root from "../Root";
 import Account from "../pages/account";
+import NewPost from "../pages/new-post";
 
 const routes = [
     {
@@ -41,6 +42,10 @@ const routes = [
             {
                 path: '/account',
                 Component: Account,
+            },
+            {
+                path: '/posts/new',
+                Component: NewPost
             }
         ],
     },

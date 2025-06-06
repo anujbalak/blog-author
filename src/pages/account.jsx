@@ -24,6 +24,7 @@ const Form = styled.form`
     column-gap: 2em;
     row-gap: 10px;
     flex-wrap: wrap;
+    font-size: 1.2rem;
 `
 
 export default function Account () {

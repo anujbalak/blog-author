@@ -4,7 +4,7 @@ import eyeIcon from '/icons/eye.svg'
 import eyeCloseIcon from '/icons/eye-closed.svg'
 
 
-const InputContainer = styled.section`
+export const InputContainer = styled.section`
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
