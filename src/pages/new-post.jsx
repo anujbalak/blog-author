@@ -31,10 +31,28 @@ const Container = styled(InputContainer)`
     flex-direction: column;
     align-items: start;
 `
+const Buttons = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    place-self: end;
+    margin-right: 5%;
+`
+
+export const init = {
+    height: 400,
+    width: '95%',
+    menubar: true,
+    plugins: [
+        'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
+        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+        'insertdatetime', 'code', 'help', 'wordcount'
+      ],
+}
 
 export default function NewPost() {
     const navigate = useNavigate();
-    const {user, setLoading} =useOutletContext()
+    const {user, setLoading, setRefresh} =useOutletContext()
     const editorRef = useRef(null);
     const [title, setTitle] = useState('')
 
@@ -53,40 +71,50 @@ export default function NewPost() {
             const result = await newPost(title, text)
             console.log(result)
         }
+        setRefresh(true)
         setLoading(false)
+        navigate('/', {replace: true});
     }
 
-    const init = {
-        height: 400,
-        width: '95%',
-        menubar: true,
-        plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
-            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'code', 'help', 'wordcount'
-          ],
-    }
     return (
         <NewPostPage>
             <Header />
-            <NewPostBody>
-                <h3>Make new post</h3>
-                <Form onSubmit={handleSave}>
-                    <InputContainer>
-                        <Label htmlFor="title">Title</Label>
-                        <InputComponent name="title" id="title" defaultValue={title} onChange={(e) => setTitle(e.target.value)}/>
-                    </InputContainer>
-                    <Container>
-                        <Label htmlFor="text">Text</Label>
-                        <Editor
-                            apiKey="dwd15wk9wobzfn3mpclvymc27enhvqy3yugacole91ape7fp"
-                            init={init}
-                            onInit={(evt, editor) => editorRef.current = editor}
-                        />
-                    </Container>
-                    <button type="submit" >Save</button>
-                </Form>
-            </NewPostBody>
+            <NewPostDetails 
+                handleSave={handleSave}
+                title={title}
+                setTitle={setTitle}
+                init={init}
+                editorRef={editorRef}
+            />
         </NewPostPage>
+    )
+}
+
+export const NewPostDetails = ({handleSave, title, editorRef, setTitle, value, handleCancel}) => {
+    return (
+        <NewPostBody>
+            <h3>Make new post</h3>
+            <Form onSubmit={handleSave} >
+                <InputContainer>
+                    <Label htmlFor="title">Title</Label>
+                    <InputComponent name="title" id="title" defaultValue={title} onChange={(e) => setTitle(e.target.value)}/>
+                </InputContainer>
+                <Container>
+                    <Label htmlFor="text">Text</Label>
+                    <Editor
+                        apiKey="dwd15wk9wobzfn3mpclvymc27enhvqy3yugacole91ape7fp"
+                        init={init}
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        initialValue={value}
+                    />
+                </Container>
+                <Buttons>
+                    {handleCancel &&
+                        <button type="cancel" onClick={handleCancel} className="cancel">Cancel</button>
+                    }
+                    <button type="submit" >Save</button>
+                </Buttons>
+            </Form>
+        </NewPostBody>
     )
 }

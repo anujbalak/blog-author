@@ -149,6 +149,70 @@ export const newPost = async (title, text) => {
     }
 }
 
+export const updatePost = async ({id, title, text, publish}) => {
+    try {
+        let result = null
+        const url = `${BACKEND_URL}posts/${id}`
+        
+        await fetch(url, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization,
+            },
+            body: JSON.stringify({title, text, publish})
+        })
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err));
+        return result;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const updatePublish = async ({id, publish}) => {
+    try {
+        let result = null
+        const url = `${BACKEND_URL}posts/${id}/publish`
+        
+        await fetch(url, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization,
+            },
+            body: JSON.stringify({publish})
+        })
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err));
+        return result;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const deletePost = async ({id}) => {
+    try {
+        let result = null
+        const url = `${BACKEND_URL}posts/${id}`
+        
+        await fetch(url, {
+            method: 'delete',
+            headers: {
+                authorization,
+            },
+        })
+        .then(response => response.json())
+        .then(response => result = response)
+        .catch(err => console.error(err));
+        return result;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
 export const logout = async (accessToken, refreshToken) => {
     try {
         let result = null;

@@ -24,7 +24,7 @@ const PostCreate = styled.span`
     font-style: italic;
 `
 
-export default function PostTitle ({authorid, date, title}) {
+export default function PostTitle ({authorid, date, title, edited}) {
     const [author, setAuthor] = useState(null);
     useEffect(() => {
         const getUser = async () => {
@@ -33,8 +33,11 @@ export default function PostTitle ({authorid, date, title}) {
        }
        getUser()
     })
+    const createDate = new Date(date).getDate()
+    const editDate = new Date(edited).getDate()
 
     const createdAt = new Date(date).toLocaleDateString()
+    const editedDate = new Date(edited).toLocaleDateString()
     return (
         <PostTitleContainer>
             <PostTitleText>
@@ -45,7 +48,12 @@ export default function PostTitle ({authorid, date, title}) {
             </PostAuthor>        
             <PostCreate>
                 {createdAt}
-            </PostCreate>        
+            </PostCreate> 
+            {editDate !== createDate &&
+                <PostCreate>
+                    edited at {editedDate}
+                </PostCreate>
+            }       
         </PostTitleContainer>
     )
 }

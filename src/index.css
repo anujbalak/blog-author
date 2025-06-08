@@ -13,6 +13,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.54;
 }
 
 a {
@@ -67,6 +68,11 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+button.cancel {
+  background-color: #d0d1cc;
+  color: #383835;
 }
 
 .textarea {
