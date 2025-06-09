@@ -30,7 +30,7 @@ export default function Root() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(true);
-
+    
     const refreshToken = localStorage.getItem('refreshToken');
     useEffect(() => {
         if (refreshToken) {
@@ -61,6 +61,7 @@ export default function Root() {
             })
             .catch(e => console.error(e));
         }
+        setRefresh(false)
     }, [refresh])
     return (
         <>

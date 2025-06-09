@@ -131,7 +131,7 @@ export default function PostComments({comments, loading, setLoading}) {
                     </AddCommentForm>
                 }
             </AddCommentContainer>
-            {comments.length > 0 &&
+            {comments && comments.length > 0 &&
                 comments.map(comment => <Comment 
                     key={comment.id} 
                     comment={comment} 

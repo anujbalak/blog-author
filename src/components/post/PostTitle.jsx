@@ -38,7 +38,7 @@ const UnpublishTag = styled(PublishTag)`
     background-color: #ee6f6f;
 `
 
-export default function PostTitle ({authorid, date, title, published}) {
+export default function PostTitle ({authorid, date, title, published, edited}) {
     const [author, setAuthor] = useState(null);
     useEffect(() => {
         const getUser = async () => {
@@ -47,8 +47,11 @@ export default function PostTitle ({authorid, date, title, published}) {
        }
        getUser()
     })
+    const createDate = new Date(date).getDate()
+    const editDate = new Date(edited).getDate()
 
     const createdAt = new Date(date).toLocaleDateString()
+    const editedDate = new Date(edited).toLocaleDateString()
     return (
         <PostTitleContainer>
             <PostTitleText>
@@ -68,7 +71,12 @@ export default function PostTitle ({authorid, date, title, published}) {
             </PostAuthor>        
             <PostCreate>
                 {createdAt}
-            </PostCreate>        
+            </PostCreate> 
+            {editDate !== createDate &&
+                <PostCreate>
+                    edited at {editedDate}
+                </PostCreate>
+            }       
         </PostTitleContainer>
     )
 }

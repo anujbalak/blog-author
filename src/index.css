@@ -13,6 +13,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.54;
 }
 
 a {
@@ -76,6 +77,12 @@ button:focus-visible {
 .add > button {
   font-weight: 900;
   font-size: 1.5rem;
+}
+
+
+button.cancel {
+  background-color: #d0d1cc;
+  color: #383835;
 }
 
 .textarea {
