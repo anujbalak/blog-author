@@ -9,13 +9,13 @@ export default function Button(props) {
     return(
         <>
             {Boolean(props.path) ?
-                <Link to={`/${props.path}`}>
+                <Link to={`/${props.path}`} className={props.className}>
                     <ButtonComponent>
                             {props.name}
                     </ButtonComponent>
                 </Link>
             :
-                <ButtonComponent>
+                <ButtonComponent className={props.className}>
                     {props.name}
                 </ButtonComponent>
             }

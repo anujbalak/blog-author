@@ -24,7 +24,21 @@ const PostCreate = styled.span`
     font-style: italic;
 `
 
-export default function PostTitle ({authorid, date, title}) {
+const PublishTag = styled.span`
+    font-size: 1rem;
+    background-color: #87d156;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    margin-left: 10%;
+    transform: rotate(-10deg);
+`
+const UnpublishTag = styled(PublishTag)`
+    background-color: #ee6f6f;
+`
+
+export default function PostTitle ({authorid, date, title, published}) {
     const [author, setAuthor] = useState(null);
     useEffect(() => {
         const getUser = async () => {
@@ -39,9 +53,18 @@ export default function PostTitle ({authorid, date, title}) {
         <PostTitleContainer>
             <PostTitleText>
                 {title}
+                {published ?
+                    <PublishTag >
+                        published
+                    </PublishTag>
+                :
+                    <UnpublishTag>
+                        unpublished
+                    </UnpublishTag>
+                }              
             </PostTitleText>
             <PostAuthor>
-                Anuj Singh
+                {author ? author.username : 'Cool author'}
             </PostAuthor>        
             <PostCreate>
                 {createdAt}

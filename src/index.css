@@ -69,6 +69,15 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.add {
+  justify-self: center;
+}
+
+.add > button {
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
 .textarea {
   text-align: left;
   all: unset;

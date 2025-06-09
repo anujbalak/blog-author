@@ -15,7 +15,7 @@ const HomeComponent = styled.div`
 `
 
 const HomeBody = styled.div`
-    
+    display: grid;
 `
 
 export const LoadingText = styled.h3`
@@ -43,7 +43,7 @@ const Homepage = () => {
                     <Bouncy size="80" color="#1567ff" />  
                 </LoadingContainer>
             }
-            <Button path="posts/new" name="+"/>
+            <Button path="posts/new" name="+" className="add"/>
             </HomeBody>
         </HomeComponent>
     )

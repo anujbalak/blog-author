@@ -29,7 +29,8 @@ export default function Root() {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
-    
+    const [refresh, setRefresh] = useState(true);
+
     const refreshToken = localStorage.getItem('refreshToken');
     useEffect(() => {
         if (refreshToken) {
@@ -50,15 +51,17 @@ export default function Root() {
     }, [refreshToken])
 
     useEffect(() => {
-        fetch(`${BACKEND_URL}posts`)
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            return setPosts(data)
-        })
-        .catch(e => console.error(e));
-    }, [])
+        if (refresh) {
+            fetch(`${BACKEND_URL}posts/author`)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                return setPosts(data)
+            })
+            .catch(e => console.error(e));
+        }
+    }, [refresh])
     return (
         <>
             {loading &&
@@ -68,7 +71,7 @@ export default function Root() {
                 </LoadingDialog>
             }
             <Outlet 
-                context={{posts, user, setUser, setLoading}}
+                context={{posts, user, setUser, setLoading, setRefresh}}
             />
         </>
     )

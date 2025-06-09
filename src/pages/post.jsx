@@ -65,6 +65,7 @@ export default function Post() {
                         authorid={post.authorid}
                         date={post.createdAt}
                         title={post.title}
+                        published={post.published}
                     />
                     <PostBody text={post.text}/>
                     <DividerLine />
