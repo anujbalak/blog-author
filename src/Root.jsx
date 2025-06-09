@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Momentum } from 'ldrs/react';
 import 'ldrs/react/Momentum.css'
 
-export const BACKEND_URL = "http://localhost:8000/"
+export const BACKEND_URL = "https://blog-api-backend-xm9k.onrender.com"
 
 const LoadingDialog = styled.dialog`
     background-color: transparent;
