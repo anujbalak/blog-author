@@ -1,12 +1,138 @@
-# React + Vite
+<div align="center">
+  <a href="https://github.com/github_username/repo_name">
+  </a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h3 align="center">Blog App</h3>
 
-Currently, two official plugins are available:
+  <p align="center">
+    A modern, full-featured blog platform where Author can read, write, edit and remove posts and comments.
+  </p>
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Built With
+
+* [![React][React.js]][React-url]
+* [![Vite][Vite.js]][Vite-url]
+* [![React-router][React-router.js]][React-Router-url]
+* [![Styled-components][Styled-componets.js]][Styled-components-url]
+* [![Eslint][Eslint.js]][Eslint-url]
+* [![Cloudflare][Cloudflare]][Cloudflare-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Features
+### 🔐 Authentication
+
+Multiple Authentication Strategies: Support for both JWT and Local authentication via Passport.js
+- **Secure User Management:** Authors can register, login, and manage their accounts
+- **Profile Management:** Edit your information including email and other profile details
+
+#### 📝 Blog Functionality
+
+Read Posts: Browse and read blog posts with a clean, user-friendly interface
+Author Features: Full blog post management for authors
+
+- Create new blog posts with rich content
+- Edit existing blog posts
+- Delete blog posts
+- View all your published posts
+- Manage post visibility and settings
+
+
+### Comment System: Full CRUD operations for comments
+
+- Create new comments on posts
+- Read and view comments
+- Edit your own comments
+- Delete your own comments
+
+
+
+### 🎨 User Interface
+
+- **Modern UI:** Clean and intuitive design for optimal user experience
+- **Responsive Design:** Works seamlessly across different devices and screen sizes
+- **User-Friendly Navigation:** Easy-to-use interface for all features
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+you need to have
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/anujbalak/blog-author.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Change git remote url to avoid accidental pushes to base project
+   ```sh
+   git remote set-url origin github_username/repo_name
+   git remote -v # confirm the changes
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+# Other Repos
+
+Author Repo: [https://github.com/anujbalak/blog-author](https://github.com/anujbalak/blog-author)  
+User Repo: [https://github.com/anujbalak/blog-user](https://github.com/anujbalak/blog-user)  
+Blog Backend Repo: [https://github.com/anujbalak/blog-api-backend](https://github.com/anujbalak/blog-api-backend)
+ 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+
+[Vite.js]: https://img.shields.io/badge/vite-%23131431?style=for-the-badge&logo=vite
+[Vite-url]: https://vite.dev/
+
+[React-router.js]: https://img.shields.io/badge/react_router-%23200a0a?style=for-the-badge&logo=react-router
+[React-router-url]: https://reactrouter.com/
+
+[Styled-componets.js]: https://img.shields.io/badge/styled_components-%23200a0a?style=for-the-badge&logo=styled-components
+[Styled-components-url]: https://styled-components.com/
+
+[Eslint.js]: https://img.shields.io/badge/eslint-black?style=for-the-badge&logo=eslint
+[Eslint-url]: https://eslint.org/
+
+[Home-image]: ./public/screenshot/home.png
+
+[Cloudflare]: https://img.shields.io/badge/cloudflare-%23402108?style=for-the-badge&logo=cloudflare
+[Cloudflare-url]: https://cloudflare.com/
